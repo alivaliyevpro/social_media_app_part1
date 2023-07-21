@@ -7,8 +7,12 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
 import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const Post = ({ post }) => {
+  const { currentUser } = useContext(AuthContext);
+
   const [commentOpen, setCommentOpen] = useState(false);
   const [liked, setLiked] = useState(false);
 
@@ -18,14 +22,14 @@ const Post = ({ post }) => {
         <div className="user">
           <div className="userInfo">
             <img
-              src={post.profilePic}
+              src={currentUser.profilePic}
               alt=""
             />
             <div className="details">
               <Link
-                to={`/profile/${post.userId}`}
+                to={`/profile/${currentUser.userId}`}
                 style={{ textDecoration: "none", color: "inherit" }}>
-                <span className="name">{post.name}</span>
+                <span className="name">{currentUser.name}</span>
               </Link>
               <span className="date">1 min ago</span>
             </div>
