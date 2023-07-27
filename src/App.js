@@ -39,7 +39,6 @@ const App = () => {
     if (!currentUser) {
       return <Navigate to="/login" />;
     }
-
     return children;
   };
 

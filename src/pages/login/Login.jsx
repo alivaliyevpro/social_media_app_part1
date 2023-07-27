@@ -1,16 +1,25 @@
 import { Link } from "react-router-dom";
 import "./login.scss";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
-import { Navigate, useNavigate } from "react-router-dom/dist";
+import { useNavigate } from "react-router-dom/dist";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    login();
-    navigate("/");
+  const handleLogin = e => {
+    e.preventDefault();
+
+    if (username === "Ali" && password === "1234") {
+      navigate("/");
+      login();
+    } else {
+      alert("The username or password you entered is incorrect.");
+      navigate("/login");
+    }
   };
 
   return (
@@ -33,10 +42,16 @@ const Login = () => {
           <h1>Login</h1>
           <form>
             <input
+              onChange={e => {
+                setUsername(e.target.value);
+              }}
               type="text"
               placeholder="Username"
             />
             <input
+              onChange={e => {
+                setPassword(e.target.value);
+              }}
               type="password"
               placeholder="Password"
             />
